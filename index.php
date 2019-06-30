@@ -9,9 +9,6 @@ session_start();
 //error_reporting(0);
 require_once"admin/konmysqli.php";
 
-
-
-
 $mnu=$_GET["mnu"];
 date_default_timezone_set("Asia/Jakarta");
 
@@ -19,435 +16,424 @@ date_default_timezone_set("Asia/Jakarta");
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <title>Sistem Sentimen Analis || Indonesia</title>
+
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Sistem Beasiswa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/icomoon.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href="css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-    <link rel="shortcut icon" href="images/ico/ykl.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="aset/css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="aset/css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="aset/css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="aset/css/themify-icons.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="aset/css/swiper.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="aset/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<!--/head-->
+<body>
+    <header class="site-header">
+        <div class="top-header-bar">
+            <div class="container">
+                <div class="row flex-wrap justify-content-center justify-content-lg-between align-items-lg-center">
+                    <div class="col-12 col-lg-8 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+                        <div class="header-bar-email">
+                          <b> Sentimen Analisis PILPRES Indonesia 2019 </b>
+                        </div><!-- .header-bar-email -->
 
-<body class="homepage">
+                      
+                    </div><!-- .col -->
 
-    <header id="header">
-        <div class="top-bar">
+                    <div class="col-12 col-lg-4 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+                        <div class="donate-btn">
+                            <a href="" data-toggle="modal" data-target="#myModals">Masuk</a>
+                        </div><!-- .donate-btn -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .top-header-bar -->
+
+
+            <!-- The Modal -->
+            <div class="modal" id="myModals">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">Masuk</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                <form role="form" method="post">
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="username">
+                        </div>
+
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="password">
+                        </div>
+
+                        <button class="btn btn-dark btn-sm" name="login"><i class="fa fa-sign-in"></i>&nbsp;Masuk</button>
+                        </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+                </div>
+            </div>
+            </div>
+
+
+
+
+
+
+
+        <div class="nav-bar">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="top-number">
-                           <!--  <p><i class="fa fa-phone-square"></i> +0123 456 70 90</p> -->
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="social">
-                            <ul class="social-share">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="site-branding d-flex align-items-center">
+                           <a class="d-block" href="index.html" rel="home"><img class="d-block" src="aset/images/logo.png" alt="logo"></a>
+                        </div><!-- .site-branding -->
+
+                        <nav class="site-navigation d-flex justify-content-end align-items-center">
+                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                                <li class="current-menu-item"><a href="index.php">Sentimen Analisis</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#myModal">Daftar</a></li>  
                             </ul>
-                            <div class="search">
-                                <form role="form">
-                                    <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/.container-->
+                        </nav><!-- .site-navigation -->
+
+                        <div class="hamburger-menu d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div><!-- .hamburger-menu -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .nav-bar -->
+    </header><!-- .site-header -->
+
+        <!-- The Modal -->
+    <div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h6 class="modal-title">Daftar</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <!--/.top-bar-->
 
-        <nav class="navbar navbar-inverse" role="banner">
-            <div class="container">
-                <div class="navbar-header" >
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="images/ico/1ykl.png" height="90px" width="160px"></a>
-                </div>
-
-                <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
-                     <?php if(isset($_SESSION["cid"])){?>
-                        <li><a href="index.php?mnu=profil" >Profil</a></li>
-                        <li><a href="index.php?mnu=pengumuman" >Pengumuman</a></li>
-                        <li><a href="index.php?mnu=logout" >Logout</a></li>
-
-                     <?php }else{?>
-                        <li><a href="index.php?mnu=home" >Home</a></li>
-                        <li><a href="index.php?mnu=registrasi" >Daftar Beasiswa</a></li>
-                        <li><a href="index.php?mnu=info">Informasi</a></li>
-                        <li><a href="#"  data-toggle="modal" data-target="#myModal">Login</a></li>
-                      </ul>
-           <!-- Modal -->
-          <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-            
-              <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><center>Silahkan Login Terlebih Dahulu</center></h4>
-                      </div>
-                      <div class="modal-body">
-                        <form method="post">
-                              <BR>
-                              <div class="input-group login-userinput">
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                  <input id="txtUser" type="text" class="form-control" name="user" placeholder="Username" required/>
-                              </div>
-                              <br />
-                              <div class="input-group">
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                  <input  id="txtPassword" type="password" class="form-control" name="pass" placeholder="Password" required/>
-                                  <span id="showPassword" class="input-group-btn">
-                          <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
-                        </span>  
-                              </div>
-                              <button class="btn btn-primary btn-block login-button"  name="Login" type="submit"><i class="fa fa-sign-in"></i> Login</button>
-                              <div class="checkbox login-options">
-                                  
-                              </div>    
-                          </form>      
-                      </div>
-                      <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div> -->
-                    </div>
-              
-            </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <form action=" "action="" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="email">Nama Lengkap:</label>
+            <input type="text" class="form-control" id="nama" name="nama">
           </div>
-                   <?php }?>
-                    </ul>
-                </div>
-            </div>
-            <!--/.container-->
-        </nav>
-        <!--/nav-->
 
-    </header>
-    <!--/header-->
-<?php if($mnu=="" || $mnu=="home"){?>
-    <section id="main-slider" class="no-margin">
-        <div class="carousel slide">
-            <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
 
-                <div class="item active" style="background-image: url(images/slider/2.jpg)">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="carousel-content">
-                                    <h1 class="animation animated-item-1">YAYASAN KENCANA LESTARI</h1>
-                                    <div class="animation animated-item-2">
-                                        Selamat Datang di Website Penerimaan Beasiswa Yayasan Kencana Lestari
-                                    </div>
-                                    <a class="btn-slide animation animated-item-3" href="index.php?mnu=registrasi">Pendaftaran</a>
-                                    <a class="btn-slide white animation animated-item-3" href="index.php?mnu=info">Seputar Informasi</a>
-                                </div>
-                            </div>
+          <div class="form-group">
+            <label for="email">Username:</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
 
-                        </div>
-                    </div>
-                </div>
-                <!--/.item-->
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
 
-                <div class="item" style="background-image: url(images/slider/11.png)">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="carousel-content">
-                                    <h1 class="animation animated-item-1">YAYASAN KENCANA LESTARI</h1> 
-                                    <div class="animation animated-item-2">
-                                       Selamat Datang di Website Penerimaan Beasiswa Yayasan Kencana Lestari
-                                    </div>
-                                    <a class="btn-slide white animation animated-item-3" href="index.php?mnu=registrasi">Pendaftaran</a>
-                                    <a class="btn-slide animation animated-item-3" href="index.php?mnu=info">Seputar Informasi</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <!--/.item-->
-
-            </div>
-            <!--/.carousel-inner-->
+          <button type="submit" class="btn btn-info btn-xs" id="simpan" name="simpan"><font color="white">Daftar</font></button>
+        </form>
         </div>
-        <!--/.carousel-->
-        <a class="prev hidden-xs hidden-sm" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs hidden-sm" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-    </section>
-    <!--/#main-slider-->
- <?php }?>
- 
-<?php if($mnu=="home" || $mnu==""){}else{?>
-    <section id="recent-works">
-        <div class="container">
-           <!--  <div class="center fadeInDown">
-                <h2>Recent Works</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
-            </div> -->
 
-            <div class="row">
-               
-               
-               
-               
-                 <?php 
-
-if($mnu=="admin"){require_once"admin/admin.php";}
-else if($mnu=="user"){require_once"user/user.php";}
-else if($mnu=="registrasi"){require_once"registrasi.php";}
-else if($mnu=="info"){require_once"info.php";}
-else if($mnu=="infodetail"){require_once"infodetail.php";}
-else if($mnu=="pengumuman"){require_once"pengumuman.php";}
-else if($mnu=="profil"){require_once"profil.php";}
-// else if($mnu=="login"){require_once"login.php";}
-else if($mnu=="data_latih"){require_once"data_latih/data_latih.php";}
-//else if($mnu=="login"){require_once"login.php";}
-else if($mnu=="updateprofil"){require_once"updateprofil.php";}
-else if($mnu=="logout"){require_once"admin/logout.php";}
-else {require_once"home.php";}
-   
- ?>
- 
- 
-            </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-        <!--/.container-->
-    </section>
-    <!--/#recent-works-->
-<?pHp }?>
-   
 
-    <footer id="footer" class="midnight-blue">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2019 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">Yayasan Kencana Lestari</a>. All Rights Reserved.
-                </div>
-                <!-- <div class="col-sm-6">
-                    <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div> -->
-            </div>
         </div>
-    </footer>
-    <!--/#footer-->
-<?php if($mnu=="" || $mnu=="home"){?>
-    <script src="js/jquery.js"></script>
-<?php }?>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+    </div>
+    </div>
 
-</html>
 
-<?php
-if(isset($_POST["Login"])){
-  $usr=$_POST["user"];
-  $pas=$_POST["pass"];
-  
-    echo $sql1="select * from `$tbpendaftar` where `username`='$usr' and `password`='$pas'";
+
     
-    if(getJum($conn,$sql1)>0){
-      $d=getField($conn,$sql1);
-        $kode=$d["id_pendaftar"];
-        $nama=$d["nama_pendaftar"];
-           $_SESSION["cid"]=$kode;
-           $_SESSION["cnama"]=$nama;
-           $_SESSION["cstatus"]="Pendaftar";
-    echo "<script>alert('Otentikasi ".$_SESSION["cstatus"]." ".$_SESSION["cnama"]." (".$_SESSION["cid"].") berhasil Login!');
-    document.location.href='index.php?mnu=profil';</script>";
+<?php
+if (isset($_POST['simpan'])) 
+{
+
+  $nama     = $_POST['nama'];
+  $email    = $_POST['email'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+ 
+
+	$add = "INSERT INTO tbl_pengunjung (id,nama,email,username,`password`)
+	VALUES ('', '$nama', '$email', '$username', '$password')";
+	$query = mysqli_query($conn, $add) or die(mysqli_error($conn));
+
+	if($query){
+	echo "<script>alert('Success! Anda sudah terdaftar silahkan Masuk');</script>";
+	echo "<script>location='index.php';</script>";
     }
-    //elseif(getJum($conn,$sql2)>0){
-      
-    //  }
     else{
-      session_destroy();
-      echo "<script>alert('Otentikasi Login GAGAL !,Silakan cek data Anda kembali...');
-      document.location.href='index.php?mnu=home';</script>";
+        echo "<script>alert('Anda gagal mendaftar');</script>";
+        echo "<script>location='index.php';</script>"; 
     }
 }
 
-
-?>
-<?php function RP($rupiah){return number_format($rupiah,"2",",",".");}?>
-<?php
-function WKT($sekarang){
-$tanggal = substr($sekarang,8,2)+0;
-$bulan = substr($sekarang,5,2);
-$tahun = substr($sekarang,0,4);
-
-$judul_bln=array(1=> "Januari", "Februari", "Maret", "April", "Mei","Juni", "Juli", "Agustus", "September","Oktober", "November", "Desember");
-$wk=$tanggal." ".$judul_bln[(int)$bulan]." ".$tahun;
-return $wk;
-}
-?>
-<?php
-function WKTP($sekarang){
-$tanggal = substr($sekarang,8,2)+0;
-$bulan = substr($sekarang,5,2);
-$tahun = substr($sekarang,2,2);
-
-$judul_bln=array(1=> "Jan", "Feb", "Mar", "Apr", "Mei","Jun", "Jul", "Agu", "Sep","Okt", "Nov", "Des");
-$wk=$tanggal." ".$judul_bln[(int)$bulan]."'".$tahun;
-return $wk;
-}
-?>
-<?php
-function BAL($tanggal){
-  $arr=split(" ",$tanggal);
-  if($arr[1]=="Januari"){$bul="01";}
-  else if($arr[1]=="Februari"){$bul="02";}
-  else if($arr[1]=="Maret"){$bul="03";}
-  else if($arr[1]=="April"){$bul="04";}
-  else if($arr[1]=="Mei"){$bul="05";}
-  else if($arr[1]=="Juni"){$bul="06";}
-  else if($arr[1]=="Juli"){$bul="07";}
-  else if($arr[1]=="Agustus"){$bul="08";}
-  else if($arr[1]=="September"){$bul="09";}
-  else if($arr[1]=="Oktober"){$bul="10";}
-  else if($arr[1]=="November"){$bul="11";}
-  else if($arr[1]=="Nopember"){$bul="11";}
-  else if($arr[1]=="Desember"){$bul="12";}
-return "$arr[2]-$bul-$arr[0]";  
-}
-?>
-
-<?php
-function BALP($tanggal){
-  $arr=split(" ",$tanggal);
-  if($arr[1]=="Jan"){$bul="01";}
-  else if($arr[1]=="Feb"){$bul="02";}
-  else if($arr[1]=="Mar"){$bul="03";}
-  else if($arr[1]=="Apr"){$bul="04";}
-  else if($arr[1]=="Mei"){$bul="05";}
-  else if($arr[1]=="Jun"){$bul="06";}
-  else if($arr[1]=="Jul"){$bul="07";}
-  else if($arr[1]=="Agu"){$bul="08";}
-  else if($arr[1]=="Sep"){$bul="09";}
-  else if($arr[1]=="Okt"){$bul="10";}
-  else if($arr[1]=="Nov"){$bul="11";}
-  else if($arr[1]=="Nop"){$bul="11";}
-  else if($arr[1]=="Des"){$bul="12";}
-return "$arr[2]-$bul-$arr[0]";  
-}
 ?>
 
 
-<?php
-function process($conn,$sql){
-$s=false;
-$conn->autocommit(FALSE);
-try {
-  $rs = $conn->query($sql);
-  if($rs){
-      $conn->commit();
-      $last_inserted_id = $conn->insert_id;
-    $affected_rows = $conn->affected_rows;
-      $s=true;
-  }
-} 
-catch (Exception $e) {
-  echo 'fail: ' . $e->getMessage();
-    $conn->rollback();
-}
-$conn->autocommit(TRUE);
-return $s;
-}
+	<?php
+             if(isset($_POST['login']))
+             {
+             	$username = mysqli_real_escape_string($conn, $_POST['username']);
+				$password = mysqli_real_escape_string($conn, $_POST['password']);
+                $ambil = mysqli_query($conn,"SELECT * FROM tbl_pengunjung WHERE Username='$username' AND password='$password' ");
+                $cocok = mysqli_num_rows($ambil);
+                if ($cocok==1)
+                {
+                    
+                    echo "<script>alert('Selamat Anda Berhasil Login');
+                    document.location.href='home.php';</script>";
+                }
+                else{
+                    echo "<script>alert('Gagal Login!');</script>";
+                    // echo "<meta http-equiv='refresh' content='1;url=index.php'>";   
+                }
+             }
 
-function getJum($conn,$sql){
-  $rs=$conn->query($sql);
-  $jum= $rs->num_rows;
-  $rs->free();
-  return $jum;
-}
+    ?>
 
-function getField($conn,$sql){
-  $rs=$conn->query($sql);
-  $rs->data_seek(0);
-  $d= $rs->fetch_assoc();
-  $rs->free();
-  return $d;
-}
 
-function getData($conn,$sql){
-  $rs=$conn->query($sql);
-  $rs->data_seek(0);
-  $arr = $rs->fetch_all(MYSQLI_ASSOC);
-  //foreach($arr as $row) {
-  //  echo $row['nama_kelas'] . '*<br>';
-  //}
-  
-  $rs->free();
-  return $arr;
-}
 
-function getAdmin($conn,$kode){
-$field="username";
-$sql="SELECT `$field` FROM `tb_admin` where `kode_admin`='$kode'";
-$rs=$conn->query($sql); 
-  $rs->data_seek(0);
-  $row = $rs->fetch_assoc();
-  $rs->free();
-    return $row[$field];
-  }
-function getPeriode($conn,$kode){
-$field="nama_periode";
-$sql="SELECT `$field` FROM `tbl_periode` where  `id_periode`='$kode'";
-$rs=$conn->query($sql); 
-  $rs->data_seek(0);
-  $row = $rs->fetch_assoc();
-  $rs->free();
-    return $row[$field];
-  }
-?>
+
+
+    <div class="swiper-container hero-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide hero-content-wrap">
+                <img src="aset/images/j.jpg" alt="">
+
+                <div class="hero-content-overlay position-absolute w-100 h-100">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-12 col-lg-8 d-flex flex-column justify-content-center align-items-start">
+                                <header class="entry-header">
+                                    <h2>&nbsp;&nbsp;&nbsp;&nbsp;SISTEM SENTIMEN ANALISIS</h2>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pemilihan Presiden Republik Indonesia 2019</h5>
+
+                                    
+                              
+                                </header><!-- .entry-header -->
+
+                                <div class="entry-content mt-4">
+                                    <p>Analisis Sentimen Twitter ini berfungsi melihat tanggapan warganet secara keseluruhan dari 
+                                        masing-masing penilaian calon presiden.</p>
+                                </div><!-- .entry-content -->
+                            </div><!-- .col -->
+                        </div><!-- .row -->
+                    </div><!-- .container -->
+                </div><!-- .hero-content-overlay -->
+            </div><!-- .hero-content-wrap -->
+
+            <div class="swiper-slide hero-content-wrap">
+                <img src="aset/images/capres.jpg" alt="">
+
+                <div class="hero-content-overlay position-absolute w-100 h-100">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-12 col-lg-8 d-flex flex-column justify-content-center align-items-start">
+                                <header class="entry-header">
+                                <h2>&nbsp;&nbsp;&nbsp;&nbsp;SISTEM SENTIMEN ANALISIS</h2>
+                                <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pemilihan Presiden Republik Indonesia 2019</h5>
+                                  
+                                </header><!-- .entry-header -->
+
+                                <div class="entry-content mt-4"><br>
+                                    <p>Analisis Sentimen Twitter ini berfungsi melihat tanggapan warganet secara keseluruhan dari 
+                                        masing-masing penilaian calon presiden.</p>
+                                </div><!-- .entry-content -->
+                            </div><!-- .col -->
+                        </div><!-- .row -->
+                    </div><!-- .container -->
+                </div><!-- .hero-content-overlay -->
+            </div><!-- .hero-content-wrap -->
+
+            <div class="swiper-slide hero-content-wrap">
+                <img src="aset/images/i.jpg" alt="">
+
+                <div class="hero-content-overlay position-absolute w-100 h-100">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-12 col-lg-8 d-flex flex-column justify-content-center align-items-start">
+                                <header class="entry-header">
+                                <h2>&nbsp;&nbsp;&nbsp;&nbsp;SISTEM SENTIMEN ANALISIS</h2>
+                                <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pemilihan Presiden Republik Indonesia 2019</h5>
+                                  
+                                </header><!-- .entry-header -->
+
+                                <div class="entry-content mt-4">
+                                    <p>Analisis Sentimen Twitter ini berfungsi melihat tanggapan warganet secara keseluruhan dari 
+                                        masing-masing penilaian calon presiden.</p>
+                                </div><!-- .entry-content -->
+                            </div><!-- .col -->
+                        </div><!-- .row -->
+                    </div><!-- .container -->
+                </div><!-- .hero-content-overlay -->
+            </div><!-- .hero-content-wrap -->
+        </div><!-- .swiper-wrapper -->
+
+        <div class="pagination-wrap position-absolute w-100">
+            <div class="container">
+                <div class="swiper-pagination"></div>
+            </div><!-- .container -->
+        </div><!-- .pagination-wrap -->
+
+        <!-- Add Arrows -->
+        <div class="swiper-button-next flex justify-content-center align-items-center">
+            <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1171 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg></span>
+        </div>
+
+        <div class="swiper-button-prev flex justify-content-center align-items-center">
+            <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1203 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg></span>
+        </div>
+    </div><!-- .hero-slider -->
+
+    <div class="home-page-icon-boxes">
+        <div class="container">
+          <center> <h3>SENTIMEN ANALISIS TWITTER CALON PRESIDEN RI 2019</h3> </center><br>
+          <p align="justify"> Respons warganet selama PILPRES RI 2019 tergambar dalam Analisis Sentimen Twitter yang dilakukan 
+              dalam penelitian ini. hasilnya akan didapati hasil sentimen analisis terhadap kedua Paslon Presiden RI 2019.
+              Pemilihan Presiden (Pilpres) setiap periodenya menjadi ajang pesta demokrasi
+              terbesar di Indonesia. Pada tahun 2019 Indonesia akan menyelenggarakan lagi Pemilihan Presiden
+              (Pilpres). Setiap momen pilplres diselenggarakan, terdapat juga banyak opini dari masyarakat untuk calon calon presiden yang 
+              Salah satu opini yang masyarakat sampaikan adalah melalui Twitter. Kurangnya kesadaran masyarakat akan opini yang dibuat, tanpa
+              mengetahui tentang positif atau negatifnya suatu opini tersebut menjadi landasan penelitian ini. Analisis sentimen merupakan bidang studi
+              yang menganalisis suatu pendapat, opini,evaluasi, sentimen, sikap atau penilaian seseorang terhadap sebuah individu, produk,
+              masalah, organisasi, peristiwa atau topik(Liu,2012). Analisis sentimen dilakukan pada penelitian ini karena pemilihan presiden akan
+              menimbulkan banyak opini masyarakat. Hasil dari analisis sentimen nantinya akan berupa kesimpulan apakah suatu sentimen bernilai
+              positif atau negatif. Penelitian ini juga nantinya bisa digunakan untuk memprediksi elektabilitas pasangan calon presiden yang akan maju pada
+              pemilihan presiden 2019
+          </p>
+        </div><!-- .container -->
+    </div><!-- .home-page-icon-boxes -->
+
+    <div class="home-page-welcome">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 order-2 order-lg-1">
+                    <div class="welcome-content">
+                        <header class="entry-header">
+                            <h2 class="entry-title">Pemilihan Umum Presiden Indonesia 2019</h2>
+                        </header><!-- .entry-header -->
+
+                        <div class="entry-content mt-5">
+                            <p align="justify">
+                            Pemilihan Umum Presiden Indonesia 2019 adalah 
+                            sebuah proses demokrasi untuk memilih Presiden dan Wakil 
+                            Presiden Republik Indonesia periode 2019-2024.Pemilihan Umum 2019 adalah pemilihan legislatif dengan pemilihan 
+                            presiden yang diadakan secara serentak. Hal ini dilakukan berdasarkan Putusan Mahkamah Konstitusi 
+                            Nomor 14 / PUU 11/2013 tentang pemilu serentak, yang bertujuan untuk meminimalkan pembiayaan negara dalam 
+                            pelaksanaan pemilu, meminimalisir politik biaya tinggi bagi peserta pemilu, serta politik uang yang 
+                            melibatkan pemilih, penyalahgunaan kekuasaan atau mencegah politisasi birokrasi, dan merampingkan skema kerja 
+                            pemerintah. 
+                            </p>
+                        </div><!-- .entry-content -->
+
+                        <div class="entry-footer mt-5">
+                          
+                        </div><!-- .entry-footer -->
+                    </div><!-- .welcome-content -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-lg-6 mt-4 order-1 order-lg-2">
+                <br><br><br>
+                    <img src="aset/images/pres.jpg" alt="welcome">
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .home-page-icon-boxes -->
+
+   
+    <div class="home-page-limestone">
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="coL-12 col-lg-12">
+                    <div class="section-heading">
+                        <h2 class="entry-title">Sentimen Analisis Twitter Capres & Cawapres RI 2019</h2>
+
+                       
+
+                    </div><!-- .section-heading -->
+                </div><!-- .col -->
+
+              
+                            </div><!-- counter-box -->
+                        </div><!-- .col -->
+                    </div><!-- .milestones -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .our-causes -->
+
+
+        <div class="footer-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Nadia Salsabil 2015230057
+                        </p>
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-bar -->
+    </footer><!-- .site-footer -->
+
+    <script type='text/javascript' src='aset/js/jquery.js'></script>
+    <script type='text/javascript' src='aset/js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='aset/js/swiper.min.js'></script>
+    <script type='text/javascript' src='aset/js/jquery.countdown.min.js'></script>
+    <script type='text/javascript' src='aset/js/circle-progress.min.js'></script>
+    <script type='text/javascript' src='aset/js/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='aset/js/jquery.barfiller.js'></script>
+    <script type='text/javascript' src='aset/js/custom.js'></script>
+
+</body>
+</html>

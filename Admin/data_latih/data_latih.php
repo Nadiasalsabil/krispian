@@ -81,9 +81,9 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
                                echo '<tr>';
                                echo '<td>'.$data['id_dataset'].'</td>';
                                echo '<td>'.$data['kategori'].'</td>';
-                               echo '<td>'.$data['tweet'].'</td>';
-                               echo '<td>'.$data['normalisasi'].'</td>';
-                               echo '<td>'.$data['sentimen'].'</td>';
+                               echo '<td><p align="justify">'.$data['tweet'].'</p></td>';
+                               echo '<td><p align="justify">'.$data['normalisasi'].'</p></td>';
+                               echo '<td><center>'.$data['sentimen'].'</center></td>';
                                
                                $no++;  
                            }

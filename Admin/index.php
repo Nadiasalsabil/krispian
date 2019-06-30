@@ -172,9 +172,10 @@ if($_SESSION["cstatus"]=="Administrator"){  ?>
 
 if($mnu=="admin"){require_once"admin/admin.php";}
 else if($mnu=="data_latih"){require_once"data_latih/data_latih.php";}
-else if($mnu=="tweet"){require_once"tweet/tweet.php";}
+else if($mnu=="tweet"){require_once"tweet.php";}
+else if($mnu=="hasildatauji"){require_once"hasildatauji/hasildatauji.php";}
 else if($mnu=="login"){require_once"login.php";}
-else if($mnu=="nb"){require_once"nb.php";}
+else if($mnu=="knn"){require_once"knn.php";}
 else if($mnu=="logout"){require_once"logout.php";}
 else {require_once"home.php";}
    
@@ -356,6 +357,7 @@ function getField($conn,$sql){
 }
 
 function getData($conn,$sql){
+	//echo "##".$sql."##";
   $rs=$conn->query($sql);
   $rs->data_seek(0);
   $arr = $rs->fetch_all(MYSQLI_ASSOC);
@@ -368,9 +370,101 @@ function getData($conn,$sql){
 }
 
 
+function getHit($kal,$kalimat){
+$ada=0;
+if(preg_match("/$kal/i", $kalimat)) {
+	$ada=1;
+	}
+	return $ada;
+}
 
+
+ function getHit2($kal,$kalimat){
+	//echo $kal."=".$kalimat."#<br>";
+  $ar=explode(" ",$kalimat);
+  $ada=0;
+  for($i=0;$i<count($ar);$i++){
+  	 if($kal==$ar[$i]){$ada++;}
+   }//for
+  return $ada;
+  } 
+ ?>
   
+    <?php
+function swap(&$arr, $a, $b) {
+    $tmp = $arr[$a];
+    $arr[$a] = $arr[$b];
+    $arr[$b] = $tmp;
+}
+?>
+    
+    
+    
 
+<?php
+function getStopWords()
+    {
+        return array(
+            'yang', 'untuk', 'pada', 'ke', 'para', 'namun', 'menurut', 'antara', 'dia', 'dua',
+            'ia', 'seperti', 'jika', 'jika', 'sehingga', 'kembali', 'dan', 'tidak', 'ini', 'karena',
+            'kepada', 'oleh', 'saat', 'harus', 'sementara', 'setelah', 'belum', 'kami', 'sekitar',
+            'bagi', 'serta', 'di', 'dari', 'telah', 'sebagai', 'masih', 'hal', 'ketika', 'adalah',
+            'itu', 'dalam', 'bisa', 'bahwa', 'atau', 'hanya', 'kita', 'dengan', 'akan', 'juga',
+            'ada', 'mereka', 'sudah', 'saya', 'terhadap', 'secara', 'agar', 'lain', 'anda',
+            'begitu', 'mengapa', 'kenapa', 'yaitu', 'yakni', 'daripada', 'itulah', 'lagi', 'maka',
+            'tentang', 'demi', 'dimana', 'kemana', 'pula', 'sambil', 'sebelum', 'sesudah', 'supaya',
+            'guna', 'kah', 'pun', 'sampai', 'sedangkan', 'selagi', 'sementara', 'tetapi', 'apakah',
+            'kecuali', 'sebab', 'selain', 'seolah', 'seraya', 'seterusnya', 'tanpa', 'agak', 'boleh',
+            'dapat', 'dsb', 'dst', 'dll', 'dahulu', 'dulunya', 'anu', 'demikian', 'tapi', 'ingin',
+            'juga', 'nggak', 'mari', 'nanti', 'melainkan', 'oh', 'ok', 'seharusnya', 'sebetulnya',
+            'setiap', 'setidaknya', 'sesuatu', 'pasti', 'saja', 'toh', 'ya', 'walau', 'tolong',
+            'tentu', 'amat', 'apalagi', 'bagaimanapun'
+        );
+    }
+
+
+function getStopNumber()
+    {
+        return array(
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$', '%'
+        );
+    }
+ 
+ 
+function Netral($bikinos,$tweet,$ak,$ar){
+	$tweetkal=strtolower($tweet);
+	$stemming=$bikinos->stem($tweetkal);
+	$stemmingnew=strtolower($stemming);
+
+$wordStop=$stemmingnew;
+for($i=0;$i<count($ar);$i++){
+ $wordStop =str_replace(" ".$ar[$i]." "," ", $wordStop); 
+}
+
+for($i=0;$i<count($ak);$i++){
+ $wordStop =str_replace($ak[$i],"", $wordStop); 
+}
+$tweetuji=str_replace("  "," ", $wordStop); 
+return $tweetuji;
+}
+
+
+function getUnix($array){
+error_reporting(0);
+$unique = array_flip(array_flip($array));
+//print_r($unique);
+$jd=count($array);
+//echo $jd."#<br>";
+$m=0;
+for($i=0;$i<$jd;$i++){
+ if(strlen($unique[$i])>0){
+  //echo "$m =".$unique[$i]."<br>";
+  $M[$m]=$unique[$i];
+  $m++;
+ }
+}
+ return $M;
+}
 ?>
 
 
