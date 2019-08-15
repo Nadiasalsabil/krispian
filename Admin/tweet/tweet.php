@@ -205,7 +205,7 @@ $simpan=process($conn,$sql);
                         </thead>
                         <tbody>
                         <?php  
-                           $query = mysqli_query($conn, "SELECT * FROM  `$tbdatauji` order by `id_datauji` desc")or die(mysqli_error());
+                           $query = mysqli_query($conn, "SELECT * FROM  table_datauji order by `id_datauji` desc")or die(mysqli_error());
                            $no = 1;        
                            while($data = mysqli_fetch_array($query)){  
                                echo '<tr>';
@@ -236,7 +236,7 @@ $bikinos = $initos->createStemmer();
 	$ar=getStopWords();
 
 $nomor=0;
- $sql0="select * from `$tbdatauji` where flag='0' order by `id_datauji` asc limit 0,5";		//		limit 0,10			
+ $sql0="select * from `$tbdatauji` where flag='0' order by `id_datauji` asc";		//		limit 0,10			
 	$arr0=getData($conn,$sql);
 		foreach($arr0 as $d0) {	
 				$nomor++;		
@@ -263,7 +263,7 @@ $stemming=$tweetuji;
 
 <?php
  //======================================		
- $sql="select * from `$tbdatalatih`  order by `id_dataset` asc limit 0,5";		//		limit 0,10			
+ $sql="select * from `$tbdatalatih`  order by `id_dataset` asc limit 0,20";		//		limit 0,10			
 	$arr=getData($conn,$sql);
 	$i=0;
 	$arStem[0]=$stemming;

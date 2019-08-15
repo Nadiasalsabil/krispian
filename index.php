@@ -42,10 +42,180 @@ date_default_timezone_set("Asia/Jakarta");
     <link rel="stylesheet" href="aset/style.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/highcharts.js" type="text/javascript"></script>
+    <script type="text/javascript">
+ var chart1; // globally available
+$(document).ready(function() {
+      chart1 = new Highcharts.Chart({
+         chart: {
+            renderTo: 'container',
+            type: 'column'
+         },   
+         title: {
+            text: 'Grafik Sentimen Analisis PASLON 01 JOKOWI & MARUF AMIN'
+         },
+         xAxis: {
+            categories: ['sentimen']
+         },
+         yAxis: {
+            title: {
+               text: 'Jumlah sentimen'
+            }
+         },
+              series:             
+            [
+            <?php 
+       
+                          
+                 $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='1' AND sentimen = '1'";        
+                 $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+                 while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                    $jumlah = $data['jumlah'];                 
+                  }   
+                            
+                  ?>
+                  {
+                    name: '<?php echo 'Positif'; ?>',
+                    color:'#3366ff',
+                    data: [<?php echo $jumlah; ?>]
+                   
+                     
+                  },
+             
+
+                    <?php 
+
+         $brand=$ret['sentimen'];                     
+             $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='1' AND sentimen = '-1'";        
+             $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+             while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                $jumlah = $data['jumlah'];                 
+              }   
+                        
+              ?>
+              {
+                name: '<?php echo 'Negatif'; ?>',
+                color: '#b30000',
+                data: [<?php echo $jumlah; ?>]
+                 
+              },
+     
+
+                        <?php 
+       
+   
+         $brand=$ret['sentimen'];                     
+             $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='1' AND sentimen = '0'";        
+             $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+             while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                $jumlah = $data['jumlah'];                 
+              }   
+                        
+              ?>
+              {
+                name: '<?php echo 'Netral'; ?>',
+                color: '#8c8c8c',
+                data: [<?php echo $jumlah; ?>]
+                 
+              },
+             
+            ]
+      });
+   }); 
+</script>
+
+
+ <script type="text/javascript">
+ var chart1; // globally available
+$(document).ready(function() {
+      chart1 = new Highcharts.Chart({
+         chart: {
+            renderTo: 'containerprabowo',
+            type: 'column'
+         },   
+         title: {
+            text: 'Grafik Sentimen Analisis PASLON 02 PRABOWO & SANDIAGA UNO'
+         },
+         xAxis: {
+            categories: ['sentimen']
+         },
+         yAxis: {
+            title: {
+               text: 'Jumlah sentimen'
+            }
+         },
+              series:             
+            [
+            <?php 
+       
+                          
+                 $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='2' AND sentimen = '1'";        
+                 $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+                 while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                    $jumlah = $data['jumlah'];                 
+                  }   
+                            
+                  ?>
+                  {
+                    name: '<?php echo 'Positif'; ?>',
+                    color: '#3385ff',
+                    data: [<?php echo $jumlah; ?>]
+                     
+                  },
+             
+
+                    <?php 
+
+         $brand=$ret['sentimen'];                     
+             $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='2' AND sentimen = '-1'";        
+             $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+             while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                $jumlah = $data['jumlah'];                 
+              }   
+                        
+              ?>
+              {
+                name: '<?php echo 'Negatif'; ?>',
+                color: '#000000',
+                data: [<?php echo $jumlah; ?>]
+                 
+              },
+     
+
+                        <?php 
+       
+   
+         $brand=$ret['sentimen'];                     
+             $sql_jumlah   = "SELECT count(sentimen) as jumlah FROM table_datauji WHERE kategori='2' AND sentimen = '0'";        
+             $query_jumlah = mysqli_query($conn,$sql_jumlah) or die(mysqli_error());
+             while( $data = mysqli_fetch_array( $query_jumlah ) ){
+                $jumlah = $data['jumlah'];                 
+              }   
+                        
+              ?>
+              {
+                name: '<?php echo 'Netral'; ?>',
+                color:'#008000',
+                data: [<?php echo $jumlah; ?>]
+                 
+              },
+             
+            ]
+      });
+   }); 
+</script>
+
+
+
+
+
 </head>
+
+
 <body>
     <header class="site-header">
         <div class="top-header-bar">
@@ -76,7 +246,7 @@ date_default_timezone_set("Asia/Jakarta");
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h6 class="modal-title">Masuk</h6>
+                    <h6 class="modal-title"><img class="d-block" src="aset/images/logo.png" alt="logo"></h6>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -85,19 +255,19 @@ date_default_timezone_set("Asia/Jakarta");
                 <form role="form" method="post">
                         <div class="input-group mb-3 input-group-sm">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            <span class="input-group-text"style="background-color:#ff0000;"><i class="fa fa-user" style="color:white;"></i></span>
                             </div>
                             <input type="text" class="form-control" name="username">
                         </div>
 
                         <div class="input-group mb-3 input-group-sm">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            <span class="input-group-text" style="background-color:#ff0000;"><i class="fa fa-lock" style="color:white;"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="password">
+                            <input type="password" class="form-control" name="password">
                         </div>
 
-                        <button class="btn btn-dark btn-sm" name="login"><i class="fa fa-sign-in"></i>&nbsp;Masuk</button>
+                        <button class="btn btn-danger btn-sm" name="login"><i class="fa fa-sign-in"></i>&nbsp;Masuk</button>
                         </form>
                 </div>
 
@@ -121,7 +291,7 @@ date_default_timezone_set("Asia/Jakarta");
                 <div class="row">
                     <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
                         <div class="site-branding d-flex align-items-center">
-                           <a class="d-block" href="index.html" rel="home"><img class="d-block" src="aset/images/logo.png" alt="logo"></a>
+                           <a class="d-block" href="index.html" rel="home"><b><font color="black">SISTEM SENTIMEN ANALISIS CAPRES RI 2019</font></b></a>
                         </div><!-- .site-branding -->
 
                         <nav class="site-navigation d-flex justify-content-end align-items-center">
@@ -150,7 +320,7 @@ date_default_timezone_set("Asia/Jakarta");
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h6 class="modal-title">Daftar</h6>
+            <h6 class="modal-title"><img class="d-block" src="aset/images/logo.png" alt="logo"></h6>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -398,11 +568,14 @@ if (isset($_POST['simpan']))
                     <div class="section-heading">
                         <h2 class="entry-title">Sentimen Analisis Twitter Capres & Cawapres RI 2019</h2>
 
-                       
+                                 <div id='container'></div> <br><br><br><br>
+
+                                 <div id='containerprabowo'></div>  
+
 
                     </div><!-- .section-heading -->
                 </div><!-- .col -->
-
+               
               
                             </div><!-- counter-box -->
                         </div><!-- .col -->
@@ -434,6 +607,7 @@ if (isset($_POST['simpan']))
     <script type='text/javascript' src='aset/js/jquery.countTo.min.js'></script>
     <script type='text/javascript' src='aset/js/jquery.barfiller.js'></script>
     <script type='text/javascript' src='aset/js/custom.js'></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 </html>

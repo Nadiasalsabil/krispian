@@ -70,7 +70,7 @@ function get_data_latih($arr){
 
 function update_database(){
 	global $db;
-	$sql = $db->query("SELECT * FROM table_datakomen");
+	$sql = $db->query("SELECT * FROM skripsi_komentar");
 	$upd = "";
 	foreach($sql as $row){
 		$stem = stem($row['komentar']);
@@ -78,7 +78,7 @@ function update_database(){
 		if(count($stem) > 0){
 			$imp = implode(",",$stem);
 		}
-		$upd .= "UPDATE table_datakomen SET stem = ".$db->quote($imp)." WHERE no = ".$db->quote($row['no'])."; ";
+		$upd .= "UPDATE skripsi_komentar SET stem = ".$db->quote($imp)." WHERE no = ".$db->quote($row['no'])."; ";
 	}
 	$run = $db->query($upd);
 	return true;

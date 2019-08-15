@@ -1,13 +1,34 @@
 <?php
 $pro="simpan";
 $tanggal=WKT(date("Y-m-d"));
-$K=5;
+$K=13;
 ?>
 <link type="text/css" href="<?php echo "$PATH/base/";?>ui.all.css" rel="stylesheet" />   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="dist/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet"  href="plugins/datatables/dataTables.bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>jquery-1.3.2.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/ui.core.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/ui.datepicker.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/i18n/ui.datepicker-id.js"></script>
+<script src="dist/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="dist/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.js"></script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
     
   <script type="text/javascript"> 
       $(document).ready(function(){
@@ -76,8 +97,8 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
     } );
     </script>
 <div id="accordion">
-  <h4>Analisa TF IDF Data</h4>
-  <div>
+  <h4>Analisa Data</h4>
+  <div><br>
 
 
 
@@ -96,14 +117,14 @@ $tweetuji=Netral($bikinos,$tweet,$ak,$ar);
 $stemming=$tweetuji;
  ?>
  
-<table id="table">
+ <table class="table">
 <tr>
 <td><label for="status">Tweet</label>
 <td>:<td colspan="2"><?php echo $tweet;?>
 </td></tr>
  
  <tr>
-<td><label for="status">Stemming</label>
+<td><label for="status">Processing Text</label>
 <td>:<td colspan="2"><?php echo $stemming;?>
 </td></tr>
 </table>
@@ -111,7 +132,7 @@ $stemming=$tweetuji;
 
 <?php
  //======================================		
- $sql="select * from `$tbdatalatih`  order by `id_dataset` asc limit 0,5";		//		limit 0,10			
+ $sql="select * from `$tbdatalatih`  order by `id_dataset` desc limit 0,100";		//		limit 0,10			
 	$arr=getData($conn,$sql);
 	$i=0;
 	$arStem[0]=$stemming;
@@ -150,7 +171,7 @@ $stemming=$tweetuji;
 	  
  $jumb=count($arUnix);
 
-$gab1="<table width='100%' border='1'>";
+$gab1="<div class='table-responsive'><table class='table table-striped' id='example1'>";
 $gab1.="<tr><td>Kata";
  for($i=0;$i<$jumdoc;$i++){
   $gab1.="<td>D".$i; 
@@ -187,7 +208,9 @@ $gab1.="</tr>";
 		}
 	$gab1.="<td>".$ada;
    }
- $dfi=round($jumada/$jumdoc,2); 
+ //$dfi=round($jumada/$jumdoc,2); 
+ $dfi=round(($jumdoc)/$jumada,2); 
+
  $logs="log($jumada/$jumdoc)"; 
  $log=round(log($dfi,10),2); 
  $log=abs($log);
@@ -206,8 +229,10 @@ $gab1.="</tr>";
    }
  
   for($j=0;$j<$jumdoc;$j++){
-    $NN[$i][$j-1]=$N[$i][0] * $N[$i][$j];
-    $gab1.= "<td>".$NN[$i][$j-1];
+   // $NN[$i][$j-1]=$N[$i][0] * $N[$i][$j];
+   //$gab1.= "<td>".$NN[$i][$j-1];
+   $NN[$i][$j]=$N[$i][0] * $N[$i][$j];
+   $gab1.= "<td>".$NN[$i][$j];
    }
 
 
@@ -259,7 +284,7 @@ $gab1.="<tr><td>Q";
 $gab1.="</tr>";
 
 //==========================================
-$gab1.="</table>"; 
+$gab1.="</table></div>"; 
 
 //"CETAK";
 
@@ -268,7 +293,7 @@ $gab1.="</table>";
 $statustx="1";
 $catatan="";
 $reakpitulasi="";
-$Q=pow($TOT2[0],0.5);
+$Q=round(sqrt($TOT2[0]),2);
 
 $gab2="Qvalue=$TOT2[0]<sup>0.5</sup> =".$Q."<br><br>";
 $gab2.="Cosine Similarity Terhadap tiap-tiap dokumen:<br>";
@@ -308,47 +333,62 @@ $gab2.="Cosine Similarity Terhadap tiap-tiap dokumen:<br>";
  
 //"CETAK";
 
-
+ 
  $array_count = count($HPROK);
         for($x = 0; $x < $array_count; $x++){
             for($a = 0 ;  $a < $array_count - 1 ; $a++){
                 if($a < $array_count ){
-                    if($HPRO[$a] > $HPRO[$a + 1] ){
+                    if($HPRO[$a] < $HPRO[$a + 1] ){
                             swap($HPROK, $a, $a+1);
-							  swap($HPRO, $a, $a+1);
-							    swap($HarKode, $a, $a+1);
-								  swap($HarTweet, $a, $a+1);
-								    swap($HarStem, $a, $a+1);
-									  swap($HarSentimen, $a, $a+1);
-									    swap($HarKat, $a, $a+1);
-                    }
+                              swap($HPRO, $a, $a+1);
+                                swap($HarKode, $a, $a+1);
+                                  swap($HarTweet, $a, $a+1);
+                                    swap($HarStem, $a, $a+1);
+                                      swap($HarSentimen, $a, $a+1);
+                                        swap($HarKat, $a, $a+1);
+                                  }
                 }
             }
         }
-
 		 
 $k1=0;
 $k2=0;
 $k3=0;
 		 		
-$gab3="<table border='1'><tr><td>No<td>Tweet<td>Prosentase<td>Sentimrn<td>Kategori</tr>";
+$gab3="<table class='table'><tr><td>No<td>Tweet<td>Prosentase<td>Sentimen<td>Kategori</tr>";
 		 for($i = 0; $i < $array_count; $i++){
 			 $no=$i+1;
 			 $gab3.="<tr><td>$no<td>$HarTweet[$i]<td>$HPRO[$i]<td>$HPROK[$i]<td>$HarKat[$i]</tr>"; 
-				 if($HPROK[$i]==-1){$k1++;}
-				 else if($HPROK[$i]==0){$k2++;}
-				 else if($HPROK[$i]==1){$k3++;}
+			 
+				//  if($HPROK[$i]==-1){$k1++;}
+				//  else if($HPROK[$i]==0){$k2++;}
+				//  else if($HPROK[$i]==1){$k3++;}
+				for($knn= 0; $knn < $K; $knn++){
+					if($HPROK[$knn]==-1){$k1++;}
+					else if($HPROK[$knn]==0){$k2++;}
+					else if($HPROK[$knn]==1){$k3++;}
+				}
 		 }
 $gab3.="</table><hr>";
 //"CETAK";
 
-$max=100;
+// for($knn= 0; $knn < $K; $knn++){
+// 	if($HPROK[$knn]==-1){$k1++;}
+// 	else if($HPROK[$knn]==0){$k2++;}
+// 	else if($HPROK[$knn]==1){$k3++;}
+// }
+
+
+
+
+// $max=0;
 $smax="?";
 if ($k1>=$k2 && $k1>=$k3){$max=-1;$smax="Negatif";}
 else if ($k2>=$k1 && $k2>=$k3){$max=0;$smax="Netral";}
 else if ($k3>=$k2 && $k3>=$k1){$max=1;$smax="Positif";}
 
-$gab4="<h1>Dengan K: $K, Kesimpulan :".$max." /$smax</h1>";
+// $gab4="<h1>Dengan K: $K, Kesimpulan :".$max." /$smax</h1>";
+$gab4="<h1>Dengan Kesimpulan :".$max." /$smax</h1>";
 //"CETAK";
 
 echo $gab1;  
@@ -359,7 +399,7 @@ echo $gab4;
 $tanggal=date("Y-m-d");
 $kategori=$HarKat[0];//01 atau 02
 $sentimen=$max;
-$sql="Update `$tbdatauji` set normalisasi='$sentimen',kategori='$kategori',tanggal='$tanggal', sentimen='$sentimen',flag='1'  where `id_datauji`='$id_datauji'";
+$sql="Update `$tbdatauji` set normalisasi='$stemming',tanggal='$tanggal', sentimen='$sentimen',flag='1'  where `id_datauji`='$id_datauji'";
 $up=process($conn,$sql);	
 ?>
 

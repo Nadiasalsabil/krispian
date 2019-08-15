@@ -7,7 +7,6 @@ $tanggal=WKT(date("Y-m-d"));
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/ui.core.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/ui.datepicker.js"></script>
 <script type="text/javascript" src="<?php echo "$PATH/";?>ui/i18n/ui.datepicker-id.js"></script>
-
     
   <script type="text/javascript"> 
       $(document).ready(function(){
@@ -70,9 +69,7 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
                         <thead>
                             <tr>  
                                 <th>no</th>
-                                
-                                <th>Tweet</th>
-                               
+                                <th>Kalimat</th>
                                 <th>Normalisasi</th>
                                 <th>Sentimen</th>
                                 <th>Edit</th>
@@ -83,18 +80,17 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
                         </thead>
                         <tbody>
                         <?php  
-                           $query = mysqli_query($conn, "SELECT * FROM  `$tbdatalatih` order by `id_dataset` desc")or die(mysqli_error());
+                           $query = mysqli_query($conn, "SELECT * FROM  `table_datakomen` order by `no` desc")or die(mysqli_error());
                            $no = 1;        
                            while($data = mysqli_fetch_array($query)){  
                                echo '<tr>';
                                echo '<td>'.$no.'</td>';
                               
-                               echo '<td><p align="justify">'.$data['tweet'].'</p></td>';
-                               echo '<td><p align="justify">'.$data['normalisasi'].'</p></td>';
+                               echo '<td><p align="justify">'.$data['komentar'].'</p></td>';
+                               echo '<td><p align="justify">'.$data['stem'].'</p></td>';
                                echo '<td><center>'.$data['sentimen'].'</center></td>';
-                               echo '<td><a href="?mnu=edit&&id='.$data['id_dataset'].'" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a></td>';
-                               echo '<td><a href="config/delete.php?id='.$data['id_dataset'].'" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash"></i></a></td>';
-                             
+                               echo '<td><a href="?mnu=edit_komen&&id='.$data['no'].'" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a></td>';
+                               echo '<td><a href="config/deletekomen.php?id='.$data['no'].'" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash"></i></a></td>';
                                
                                $no++;  
                            }
@@ -172,21 +168,28 @@ if (isset($_POST['simpan']))
       $stopword=str_replace("  "," ", $wordStop); 
       $stemming=trim($stopword);
 
-	$add = "INSERT INTO table_dataset (id_dataset, tweet,sentimen,normalisasi)
+	$add = "INSERT INTO table_datakomen (no, komentar,sentimen,stem)
 	VALUES ('','$judul','$sentimen','$stemming')";
 	$query = mysqli_query($conn, $add) or die(mysqli_error($conn));
 
 	if($query){
 	echo "<script>alert('Success! Data Added');</script>";
-	echo "<script>location='index.php?mnu=data_latih';</script>";
+	echo "<script>location='index.php?mnu=data_latih_komentar';</script>";
     }
     else{
         echo "<script>alert('Success! Data Added');</script>";
-        echo "<script>location='index.php?mnu=data_latih';</script>"; 
+        echo "<script>location='index.php?mnu=data_latih_komentar';</script>"; 
     }
 }
 
+
+
+
+
+
 ?>
+
+
 
 
 <!-- Modal -->
@@ -260,16 +263,16 @@ if (isset($_POST['simpan']))
         $stemming=trim($stopword);
 
 	$n++;
-	$sql="INSERT INTO `table_dataset` (
-        `id_dataset`,
-        `tweet`, 
-        `sentimen`,
-        `normalisasi`
+	$sql="INSERT INTO `table_datakomen` (
+        `no`,
+        `komentar`, 
+        `stem`,
+        `sentimen`
         ) VALUES (
         '$id_dataset', 
         '$tweet',
-        '$label',
-        '$stemming'
+        '$stemming',
+        '$label'
 
         )";
 	

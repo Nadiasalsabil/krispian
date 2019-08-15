@@ -15,7 +15,7 @@ date_default_timezone_set("Asia/Jakarta");
 <?php
 $pro="simpan";
 
-$K= 3;
+$K=13;
 ?>
 
 <!DOCTYPE html>
@@ -351,7 +351,7 @@ $K= 3;
                         $statustx="1";
                         $catatan="";
                         $reakpitulasi="";
-                        $Q=round(sqrt($TOT2[0]),2);
+                        $Q=pow($TOT2[0],0.5);
 
                         $gab2="Qvalue=$TOT2[0]<sup>0.5</sup> =".$Q."<br><br>";
                         $gab2.="Cosine Similarity Terhadap tiap-tiap dokumen:<br>";
@@ -433,9 +433,9 @@ $K= 3;
 
                         // $max=0;
                         $smax="?";
-                        if ($k1>$k2 && $k1>$k3){$max=-1;$smax="Negatif";}
-                        else if ($k2>$k1 && $k2>$k3){$max=0;$smax="Netral";}
-                        else if ($k3>$k2 && $k3>$k1){$max=1;$smax="Positif";}
+                        if ($k1>=$k2 && $k1>=$k3){$max=-1;$smax="Negatif";}
+                        else if ($k2>=$k1 && $k2>=$k3){$max=0;$smax="Netral";}
+                        else if ($k3>=$k2 && $k3>=$k1){$max=1;$smax="Positif";}
 
                         $gab4="<h5>$smax</h5>";
                         // $gab4="<h4>$smax</h4>";
@@ -616,7 +616,7 @@ function getStopWords()
     {
         return array(
             'yang', 'untuk', 'pada', 'ke', 'para', 'namun', 'menurut', 'antara', 'dia', 'dua',
-            'ia', 'seperti', 'jika', 'jika', 'sehingga', 'kembali', 'dan',  'ini', 'karena',
+            'ia', 'seperti', 'jika', 'jika', 'sehingga', 'kembali', 'dan', 'tidak', 'ini', 'karena',
             'kepada', 'oleh', 'saat', 'harus', 'sementara', 'setelah', 'belum', 'kami', 'sekitar',
             'bagi', 'serta', 'di', 'dari', 'telah', 'sebagai', 'masih', 'hal', 'ketika', 'adalah',
             'itu', 'dalam', 'bisa', 'bahwa', 'atau', 'hanya', 'kita', 'dengan', 'akan', 'juga',
@@ -627,7 +627,7 @@ function getStopWords()
             'kecuali', 'sebab', 'selain', 'seolah', 'seraya', 'seterusnya', 'tanpa', 'agak', 'boleh',
             'dapat', 'dsb', 'dst', 'dll', 'dahulu', 'dulunya', 'anu', 'demikian', 'tapi', 'ingin',
             'juga', 'nggak', 'mari', 'nanti', 'melainkan', 'oh', 'ok', 'seharusnya', 'sebetulnya',
-            'setiap', 'sesuatu', 'pasti', 'saja', 'toh', 'ya', 'walau', 'tolong',
+            'setiap', 'setidaknya', 'sesuatu', 'pasti', 'saja', 'toh', 'ya', 'walau', 'tolong',
             'tentu', 'amat', 'apalagi', 'bagaimanapun'
         );
     }

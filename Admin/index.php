@@ -95,7 +95,7 @@ date_default_timezone_set("Asia/Jakarta");
 		  
 			<div class="navbar-custom-menu" >
             <ul class="nav navbar-nav">
- 
+   
 		   <li class="dropdown user user-menu">
                 
           </div>
@@ -126,14 +126,18 @@ if($_SESSION["cstatus"]=="Administrator"){  ?>
 <!-- <li class="treeview"><a href="index.php?mnu=home"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i></a></li> -->
 <li><a href='index.php?mnu=home'><i class='fa fa-home'></i>Home</a></li>
 <li><a href='index.php?mnu=data_latih'><i class='fa fa-database'></i>Data Latih</a></li>
+<li><a href='index.php?mnu=data_latih_komentar'><i class='fa fa-database'></i>Data Latih Komentar</a></li>
+<li><a href='index.php?mnu=gettweet'><i class='fa fa-laptop'></i>Get Tweet</a></li>
 <li><a href='index.php?mnu=tweet'><i class='fa fa-laptop'></i>Tweet</a></li>
 <li><a href='index.php?mnu=hasildatauji'><i class='fa fa-database'></i>Hasil Pengujian</a></li>
-<li><a href="index.php?mnu=logout"> <i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+<li><a href='index.php?mnu=datatesting'><i class='fa fa-database'></i>Data Testing </a></li>
+<!-- <li><a href='index.php?mnu=tesskill'><i class='fa fa-database'></i>Test Skill </a></li>  -->
+<li><a href="index.php?mnu=logout"> <i class="fa fa-power-off"></i> <span>Logout</span></a></li> 
 
  <?php }else{ ?>
 
-<li class="treeview"><a href="index.php?mnu=home"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i></a></li>
-<li class="treeview"><a href="Login/Login.php"> <i class="fa fa-dashboard"></i> <span>Login</span> <i class="fa fa-angle-left pull-right"></i></a></li>
+<!-- <li class="treeview"><a href="index.php?mnu=home"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i></a></li>
+<li class="treeview"><a href="Login/Login.php"> <i class="fa fa-dashboard"></i> <span>Login</span> <i class="fa fa-angle-left pull-right"></i></a></li> -->
 
 
  <?php }?>        
@@ -172,8 +176,15 @@ if($_SESSION["cstatus"]=="Administrator"){  ?>
 
 if($mnu=="admin"){require_once"admin/admin.php";}
 else if($mnu=="data_latih"){require_once"data_latih/data_latih.php";}
+else if($mnu=="edit"){require_once"data_latih/edit.php";}
+else if($mnu=="edit_komen"){require_once"data_latih_komentar/edit.php";}
 else if($mnu=="tweet"){require_once"tweet.php";}
+else if($mnu=="gettweet"){require_once"gettweet/gettweet.php";}
 else if($mnu=="hasildatauji"){require_once"hasildatauji/hasildatauji.php";}
+else if($mnu=="datatesting"){require_once"akurasi/akurasi.php";}
+else if($mnu=="editdatatesting"){require_once"akurasi/edit.php";}
+else if($mnu=="tesskill"){require_once"tesskill/testskill.php";}
+else if($mnu=="data_latih_komentar"){require_once"data_latih_komentar/data_latih_komentar.php";}
 else if($mnu=="login"){require_once"login.php";}
 else if($mnu=="knn"){require_once"knn.php";}
 else if($mnu=="logout"){require_once"logout.php";}
@@ -406,7 +417,7 @@ function getStopWords()
     {
         return array(
             'yang', 'untuk', 'pada', 'ke', 'para', 'namun', 'menurut', 'antara', 'dia', 'dua',
-            'ia', 'seperti', 'jika', 'jika', 'sehingga', 'kembali', 'dan', 'tidak', 'ini', 'karena',
+            'ia', 'seperti', 'jika', 'jika', 'sehingga', 'kembali', 'dan', 'ini', 'karena',
             'kepada', 'oleh', 'saat', 'harus', 'sementara', 'setelah', 'belum', 'kami', 'sekitar',
             'bagi', 'serta', 'di', 'dari', 'telah', 'sebagai', 'masih', 'hal', 'ketika', 'adalah',
             'itu', 'dalam', 'bisa', 'bahwa', 'atau', 'hanya', 'kita', 'dengan', 'akan', 'juga',
@@ -426,7 +437,7 @@ function getStopWords()
 function getStopNumber()
     {
         return array(
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$', '%'
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$', '%','-'
         );
     }
  

@@ -1,7 +1,7 @@
 <?php
 $pro="simpan";
 $tanggal=WKT(date("Y-m-d"));
-$K=19;
+$K = 13;
 ?>
 <link type="text/css" href="<?php echo "$PATH/base/";?>ui.all.css" rel="stylesheet" />   
 <script type="text/javascript" src="<?php echo "$PATH/";?>jquery-1.3.2.js"></script>
@@ -57,53 +57,72 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
   </script>
 
 <div class="well well-sm">
-	<i class="fa fa-twitter" size="24"></i>&nbsp;Data Twitter Pilpres 2019
+	Data Testing Akurasi 
 </div>
-
 <div class="well well-sm">
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Input Data Tweet</button>
-<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal1"><i class="fa fa-upload"></i>&nbsp;Import Data Tweet.csv</button>
-<a href="?mnu=tweet&gen=ok" class="btn btn-danger btn-sm">
-	<i class="fa fa-gear"></i>&nbsp;Proses Analisa Data Tweet</button>
-</a>
+<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal1"><i class="fa fa-upload"></i>&nbsp;Import Data Testing</button>
 </div>
 
 
+ <div class="table-responsive">
+                     <table class="table table-striped" id="example1">
+                        <thead>
+                            <tr>  
+                                <th>no</th>
+                                
+                                <th>Tweet</th>
+                                <th>Sentimen</th>
+                                <th>Hasil Pengujian Metode</th>
+                                <th>Edit</th>
+                                <th>Hapus</th>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
- <!-- Modal content-->
- <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambah Tweet</h4>
-      </div>
-      <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="tweet">Masukkan Tweet:</label>
-                <textarea class="form-control" rows="5" id="judul" name="judul"></textarea>
-            </div>
+                            </tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php  
+                           $query = mysqli_query($conn, "SELECT * FROM  tbl_datatesting order by `id_datatesting` asc")or die(mysqli_error());
+                           $no = 1;        
+                           while($data = mysqli_fetch_array($query)){  
+                               echo '<tr>';
+                               echo '<td>'.$no.'</td>';
+                              
+                               echo '<td><p align="justify">'.$data['tweet'].'</p></td>';?>
+                               <!-- echo '<td><center>'.$data['sentimen'].'</center></td>'; -->
+                                  <td> <?php if($data['sentimen']==1){
+                                    echo "<font color='blue'>Positif</font>";
 
-             <div class="form-group">
-                <label for="tweet">No Urut Paslon:</label>
-                <input type="text" class="form-control" id="kate" name="kate" placeholder="Ex : 1">
-            </div>
+                                  }elseif($data['sentimen']==0){
+                                    echo "<font color='green'>Netral</font>";
+                                  }else{
+                                    echo "<font color='red'>Negatif</font>";
+                                  }?></td>
 
-            <button type="submit" class="btn btn-info" id="simpan" name="simpan">Simpan</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+                                    <td> <?php if($data['labelpengujian']==1){
+                                    echo "<font color='blue'>Positif</font>";
 
-  </div>
-</div>
+                                  }elseif($data['labelpengujian']==0){
+                                    echo "<font color='green'>Netral</font>";
+                                  }else{
+                                    echo "<font color='red'>Negatif</font>";
+                                  }?></td>
+                              
+                               <?php
+                                echo '<td><a href="?mnu=editdatatesting&&id='.$data['id_datatesting'].'" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a></td>';
+                                echo '<td><a href="config/deletedatatesting.php?id='.$data['id_datatesting'].'" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash"></i></a></td>';
+                               $no++;  
+                           }
+                          
 
+                        ?>
+                        
+                      
+                        </tbody>
+                    </table>
 
-
+                    <form action="" method="post">
+<input name="Uji" type="Submit" id="Uji" title="Uji Semua data Angket yang belum memiliki Label" value="Uji AKURASI" />
+ </form>
 
 <!-- Modal -->
 <div id="myModal1" class="modal fade" role="dialog">
@@ -120,12 +139,7 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
                 <label for="tweet">Import Tweet:</label>
                 <input type="file" class="form-control" name="excelfile">
             </div>
-            <div class="form-group">
-                <label for="tweet">No Urut Paslon:</label>
-                <input type="text" class="form-control" id="kate" name="kate" placeholder="Ex : 1">
-            </div>
-
-            <input type="submit" class="btn btn-success" id="form_submit" name="form_submit" value="Upload Data">
+            <input type="submit" class="btn btn-success" id="form_simpan" name="form_simpan" value="Upload Data">
         </form>
       </div>
       <div class="modal-footer">
@@ -136,37 +150,9 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
   </div>
 </div>
 
-
-
 <?php
-if (isset($_POST['simpan'])) 
-{
-    $tanggal=date("Y-m-d");
-    $judul = $_POST['judul'];
-    $kate = $_POST['kate'];
-	
-
-
-	$add = "INSERT INTO table_datauji (id_datauji, tweet, tanggal, kategori)
-	VALUES ('','$judul','$tanggal', '$kate')";
-	$query = mysqli_query($conn, $add) or die(mysqli_error($conn));
-
-	if($query){
-	echo "<script>alert('Success! Data Added');</script>";
-	echo "<script>location='index.php?mnu=tweet';</script>";
-    }
-    else{
-        echo "<script>alert('Success! Data Added');</script>";
-        echo "<script>location='index.php?mnu=tweet';</script>"; 
-    }
-}
-
-?>
-
-<?php
- if(isset($_POST['form_submit'])){
-    $tanggal=date("Y-m-d");
-    $kate = $_POST['kate'];
+ if(isset($_POST['form_simpan'])){
+   
 		require_once 'Excel/reader.php';
 		$data = new Spreadsheet_Excel_Reader();
 		$data->setOutputEncoding('CP1251');
@@ -175,100 +161,51 @@ if (isset($_POST['simpan']))
     $n=0;
 		for ($x = 2; $x <= count($data->sheets[0]["cells"]); $x++) {
 			// $id_datauji = $data->sheets[0]["cells"][$x][1];
-			$tweet= $data->sheets[0]["cells"][$x][1];
-
-			//NIDN Nama Dosen	JK	Status Pegawai	Pendidikan Terakhir	Jabatan Akademik	ID Prodi	Jenj. Pend. Prodi	Nama Prodi
+      $tweet= $data->sheets[0]["cells"][$x][1];
+      $label= $data->sheets[0]["cells"][$x][2];
 
 
 	$n++;
-	$sql="INSERT INTO `table_datauji` (
-        `id_datauji`,
+	$sql="INSERT INTO `tbl_datatesting` (
+        `id_datatesting`,
         `tweet`, 
-        `tanggal`,
-        'kategori'
+        `sentimen`
+        
         ) VALUES (
-        '$id_datauji', 
+        '$id_datatesting', 
         '$tweet',
-        '$tanggal',
-        '$kate'
+        '$label'
+        
 
         )";
 	
-$simpan=process($conn,$sql);
- 
+$simpan=mysqli_query($conn,$sql);
+
+
  }//for
  
  
- echo "<script>alert('Import Berhasil sebanyak $n data !');document.location.href='?mnu=tweet';</script>";
+ echo "<script>alert('Import Berhasil sebanyak $n data !');document.location.href='?mnu=datatesting';</script>";
 
  }
 ?>
 
 
 
-
-                       <div class="table-responsive">
-                     <table class="table table-striped" id="example1">
-                        <thead>
-                            <tr>  
-                                <th><center>No</center></th>
-                                <th><center>Tanggal</center></th>
-                                <th><center>Tweet</center></th>
-                                <th><center>Detail Analisa Data</center></th>
-                            </tr>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php  
-                           $query = mysqli_query($conn, "SELECT * FROM  `$tbdatauji` where flag = 0 order by `id_datauji` asc")or die(mysqli_error());
-                           $no = 1;        
-                           while($data = mysqli_fetch_array($query)){  
-						   $id_datauji=$data["id_datauji"];
-                               echo '<tr>';
-                               echo '<td>'.$no.'</td>';
-                               echo '<td>'.$data['tanggal'].'</td>';
-                               echo '<td><p align="justify">'.$data['tweet'].'</p></td>';
-                               echo "<td><center>
-							   <a href='index.php?mnu=knn&id=$id_datauji'><button type='button' class='btn btn-warning btn-sm'>
-							   <i class='fa fa-eye'></i></button></a></center></td>";
-                               $no++;  
-                           }
-                          
-
-                        ?>
-                        
-                      
-                        </tbody>
-                    </table>
-
 <?php
-if(isset($_GET["gen"])){
-
-  // echo "<script>alert('Data Sedang di Proses Harap Menunggu....')</script>";
-  echo "
-      <div class='alert alert-warning alert-dismissible'>
-      <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-      <strong> Data Sedang Diproses Harap Tunggu Jangan Keluar Dari halaman ini, tunggu hingga selesai...</strong> 
-      </div>
-
-
-   ";
-
-require_once __DIR__ . '/vendor/autoload.php';
-
-//error_reporting(0);
-			
-$initos = new \Sastrawi\Stemmer\StemmerFactory();
+if(isset($_POST["Uji"])){
+    require_once __DIR__ . '/../vendor/autoload.php';
+	$initos = new \Sastrawi\Stemmer\StemmerFactory();
 $bikinos = $initos->createStemmer();
 	$ak=getStopNumber();
 	$ar=getStopWords();
 
 $nomor=0;
- $sql0="select * from `$tbdatauji` where flag='0' order by `id_datauji` asc ";		//		limit 0,10			
+ $sql0="select * from `tbl_datatesting`  order by `id_datatesting` asc limit 0,45";		//		limit 0,10			
 	$arr0=getData($conn,$sql0);
 		foreach($arr0 as $d0) {	
 				$nomor++;		
-				$id_datauji=$d0["id_datauji"];
+				$id_datauji=$d0["id_datatesting"];
 				$tweet=$d0["tweet"];
 	
 $tweetuji=Netral($bikinos,$tweet,$ak,$ar);
@@ -291,7 +228,7 @@ $stemming=$tweetuji;
 
 <?php
  //======================================		
- $sql="select * from `$tbdatalatih`  order by `id_dataset` asc 	limit 0,350	";		//		limit 0,10			
+ $sql="select * from `$tbdatalatih`  order by `id_dataset` asc limit 0,120";		//		limit 0,10			
 	$arr=getData($conn,$sql);
 	$i=0;
 	$arStem[0]=$stemming;
@@ -487,6 +424,7 @@ $gab2.="Cosine Similarity Terhadap tiap-tiap dokumen:<br>";
  }
  
 //"CETAK";
+
 $array_count = count($HPROK);
 for($x = 0; $x < $array_count; $x++){
     for($a = 0 ;  $a < $array_count - 1 ; $a++){
@@ -505,26 +443,33 @@ for($x = 0; $x < $array_count; $x++){
 }
 
 		 
+		 
 $k1=0;
 $k2=0;
 $k3=0;
 		 		
-$gab3="<table border='1'><tr><td>No<td>Tweet<td>Prosentase<td>Sentimen<td>Kategori</tr>";
+$gab3="<table class='table'><tr><td>No<td>Tweet<td>Prosentase<td>Sentimen<td>Kategori</tr>";
 		 for($i = 0; $i < $array_count; $i++){
 			 $no=$i+1;
 			 $gab3.="<tr><td>$no<td>$HarTweet[$i]<td>$HPRO[$i]<td>$HPROK[$i]<td>$HarKat[$i]</tr>"; 
+			 
 				//  if($HPROK[$i]==-1){$k1++;}
 				//  else if($HPROK[$i]==0){$k2++;}
 				//  else if($HPROK[$i]==1){$k3++;}
+				for($knn= 0; $knn < $K; $knn++){
+					if($HPROK[$knn]==-1){$k1++;}
+					else if($HPROK[$knn]==0){$k2++;}
+					else if($HPROK[$knn]==1){$k3++;}
+				}
 		 }
 $gab3.="</table><hr>";
 //"CETAK";
 
-for($knn= 0; $knn < $K; $knn++){
-	if($HPROK[$knn]==-1){$k1++;}
-	else if($HPROK[$knn]==0){$k2++;}
-	else if($HPROK[$knn]==1){$k3++;}
-}
+// for($knn= 0; $knn < $K; $knn++){
+// 	if($HPROK[$knn]==-1){$k1++;}
+// 	else if($HPROK[$knn]==0){$k2++;}
+// 	else if($HPROK[$knn]==1){$k3++;}
+// }
 
 $max=100;
 $smax="?";
@@ -540,16 +485,90 @@ $gab4="<h1>Dengan K: $K, Kesimpulan :".$max." /$smax</h1>";
 // echo $gab3;  
 // echo $gab4;  
 
-
-
 $tanggal=date("Y-m-d");
 $kategori=$HarKat[0];//01 atau 02
 $sentimen=$max;
-$sql="Update `$tbdatauji` set normalisasi='$stemming',tanggal='$tanggal',flag='1', sentimen='$sentimen'  where `id_datauji`='$id_datauji'";
+$sql="Update `tbl_datatesting` set normalisasi='$stemming', labelpengujian = '$sentimen' where `id_datatesting`='$id_datauji'";
 $up=process($conn,$sql);
 
-		}//loop dataUji
-}//isset
+
+		}	
+
+
+        
+        $TP=0;
+        $TN=0;
+        $TNET=0;
+        $FP=0;
+        $FN=0;
+        $FNET=0;
+        $sqlr="select * from `tbl_datatesting` order by `id_datatesting` asc limit 0,45";
+        $jumk=getJum($conn,$sqlr);
+        if( $jumk>0){
+        
+            $arrw=getData($conn,$sqlr);
+                foreach($arrw as $dw) {							
+                        $id_datatesting=$dw["id_datatesting"];
+                        $sentimen=$dw["sentimen"];
+                        $labelpengujian=$dw["labelpengujian"];
+                       
+        
+           
+                        
+                        
+        if($sentimen==$labelpengujian && $sentimen=="1"){$TP++;}
+        else if($sentimen!=$labelpengujian && $sentimen=="1"){$FP++;}
+        
+        if($sentimen==$labelpengujian && $sentimen=="-1"){$TN++;}
+        else if($sentimen!=$labelpengujian && $sentimen=="-1"){$FN++;}
+
+        if($sentimen==$labelpengujian && $sentimen=="0"){$TNET++;}
+        else if($sentimen!=$labelpengujian && $sentimen=="0"){$FNET++;}
+                
+                }
+                
+                        
+        
+        
+        if( $jumk>0){
+                        
+          echo"</table> <br>";
+          
+        
+            echo"<h4><b>--AKURASI--</b></h4>";
+        
+            echo"<table class='table table-striped'>";
+            
+                echo"<tr bgcolor='#bbbbbb'><td><b>Kelas</b></td><td><b>Terklasifikasi Positif</b></td><td><b>Terklasifikasi Negatif</b></td><td><b>Terklasifikasi Netral</b></td>";
+                echo"<tr><td><b>Positif</b></td><td>$TP</td><td>$TN</td><td>$TNET</td>";
+                echo"<tr><td><b>Negatif</b></td><td>$FP</td><td>$FN</td><td>$FNET";
+            
+            echo"</table>";
+            
+        
+            $hasil=(($TP+$TN+$TNET)/($TP+$TN+$TNET+$FP+$FN+$FNET)) *100;
+            $shasil="(($TP+$TN+$TNET)/($TP+$TN+$TNET+$FP+$FN+$FNET)) *100";
+            
+        
+            echo "<b>Akurasi : $hasil %</b>";
+        
+        }
+    }
+
+
+
+
+
+
+
+
+
+        
+
+}
+ 
+
+
 
 
 ?>
