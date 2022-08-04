@@ -15,10 +15,10 @@ $footer="Http://www.client-server.org";
 
 $tbadmin="tbl_admin";
 $tbuser="tbl_user";
-// $tbpendaftar="tbl_pendaftar";
+$tbpendaftar="tbl_pendaftar";
 $tbdatalatih="table_dataset";
 $tbdatauji="table_datauji";
-// $tbdatatesting="tbl_datatesting";
-// $tbhasil="tbl_hasil";
-// $tbperiode="tbl_periode";
+$tbdatatesting="tbl_datatesting";
+$tbhasil="tbl_hasil";
+$tbperiode="tbl_periode";
 ?>

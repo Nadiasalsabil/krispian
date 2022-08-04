@@ -220,10 +220,10 @@ $simpan=process($conn,$sql);
                         </thead>
                         <tbody>
                         <?php  
-                           $query = mysqli_query($conn, "SELECT * FROM  `$tbdatauji` where flag = 0 order by `id_datauji` asc")or die(mysqli_error());
+                           $query = mysqli_query($conn, "SELECT * FROM  `$tbdatauji` where kategori = 0 order by `id_datauji` asc")or die(mysqli_error($conn));
                            $no = 1;        
                            while($data = mysqli_fetch_array($query)){  
-						   $id_datauji=$data["id_datauji"];
+						                $id_datauji=$data["id_datauji"];
                                echo '<tr>';
                                echo '<td>'.$no.'</td>';
                                echo '<td>'.$data['tanggal'].'</td>';

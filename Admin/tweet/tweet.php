@@ -60,7 +60,7 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
 </div>
 
 <div class="well well-sm">
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Input Data Tweet</button>
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Input Data </button>
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal1"><i class="fa fa-upload"></i>&nbsp;Import Data Tweet.csv</button>
 
 <a href="?mnu=tweet&gen=ok" class="btn btn-danger btn-sm">

@@ -119,12 +119,12 @@ $stemming=$tweetuji;
  
  <table class="table">
 <tr>
-<td><label for="status">Tweet</label>
+<td><label for="status">Kalimat</label>
 <td>:<td colspan="2"><?php echo $tweet;?>
 </td></tr>
  
  <tr>
-<td><label for="status">Processing Text</label>
+<td><label for="status"><i>Text Processing</i></label>
 <td>:<td colspan="2"><?php echo $stemming;?>
 </td></tr>
 </table>
@@ -171,25 +171,25 @@ $stemming=$tweetuji;
 	  
  $jumb=count($arUnix);
 
-$gab1="<div class='table-responsive'><table class='table table-striped' id='example1'>";
-$gab1.="<tr><td>Kata";
+$gab1="<div class='table-responsive'><table class='table table-bordered table-striped' id='example1'>";
+$gab1.="<tr style='background:yellow;'><td><b>Kalimat</b>";
  for($i=0;$i<$jumdoc;$i++){
-  $gab1.="<td>D".$i; 
+  $gab1.="<td><b>D".$i.'</b>'; 
  }
- $gab1.="<td>df";
- $gab1.="<td>d/df";
- $gab1.="<td>IDF";
- $gab1.="<td>IDF+1";
+ $gab1.="<td><b>df</b>";
+ $gab1.="<td><b>d/df</b>";
+ $gab1.="<td><b>IDF</b>";
+ $gab1.="<td><b>IDF+1</b>";
  for($i=0;$i<$jumdoc;$i++){
-	  $gab1.="<td>WD".$i; 
+	  $gab1.="<td><b>WD".$i.'</b>'; 
  }
 
 
  for($i=0;$i<$jumdoc;$i++){
-  $gab1.="<td>N".$i;  
+  $gab1.="<td><b>N".$i.'</b>';  
  }
   for($i=0;$i<$jumdoc;$i++){
-  $gab1.="<td>M".$i; 
+  $gab1.="<td><b>M".$i.'</b>'; 
  }
 $gab1.="</tr>";
  
@@ -355,10 +355,10 @@ $k1=0;
 $k2=0;
 $k3=0;
 		 		
-$gab3="<table class='table'><tr><td>No<td>Tweet<td>Prosentase<td>Sentimen<td>Kategori</tr>";
+$gab3="<b>PROSENTASE HASIL COSINE SIMILARITY</b> <br> <table class='table table-bordered'><tr><td><b>No</b><td><b>Kronologi Klaim</b><td><b>Prosentase Kemiripan Kronologi Klaim</b></tr>";
 		 for($i = 0; $i < $array_count; $i++){
 			 $no=$i+1;
-			 $gab3.="<tr><td>$no<td>$HarTweet[$i]<td>$HPRO[$i]<td>$HPROK[$i]<td>$HarKat[$i]</tr>"; 
+			 $gab3.="<tr><td>$no<td>$HarTweet[$i]<td>$HPRO[$i] %</tr>"; 
 			 
 				//  if($HPROK[$i]==-1){$k1++;}
 				//  else if($HPROK[$i]==0){$k2++;}
@@ -388,7 +388,7 @@ else if ($k2>=$k1 && $k2>=$k3){$max=0;$smax="Netral";}
 else if ($k3>=$k2 && $k3>=$k1){$max=1;$smax="Positif";}
 
 // $gab4="<h1>Dengan K: $K, Kesimpulan :".$max." /$smax</h1>";
-$gab4="<h1>Dengan Kesimpulan :".$max." /$smax</h1>";
+// $gab4="<h1>Dengan Kesimpulan :".$max." /$smax</h1>";
 //"CETAK";
 
 echo $gab1;  
