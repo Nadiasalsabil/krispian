@@ -81,7 +81,7 @@ function buka(url) {window.open(url, 'window_baru', 'width=800,height=600,left=3
                         </thead>
                         <tbody>
                         <?php  
-                           $query = mysqli_query($conn, "SELECT * FROM  tbl_datatesting order by `id_datatesting` asc")or die(mysqli_error());
+                           $query = mysqli_query($conn, "SELECT * FROM  tbl_datatesting order by `id_datatesting` asc")or die(mysqli_error($conn));
                            $no = 1;        
                            while($data = mysqli_fetch_array($query)){  
                                echo '<tr>';
